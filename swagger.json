@@ -1,0 +1,83 @@
+{
+   "swagger": "2.0",
+   "info": {
+     "title": "Hotel API",
+     "description": "API for hotel management",
+     "version": "1.0"
+   },
+   "produces": ["application/json"],
+   "host": "127.0.0.1:3000",
+   "basePath": "/",
+   "paths": {
+     "/rooms": {
+       "get": {
+         "operationId": "rooms",
+         "tags": ["Rooms"],
+         "description": "Récupère la liste des chambres",
+         "parameters": [],
+         "responses": {
+              "200": {
+                 "description": "successful operation",
+                 "schema": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id_room": { "type": "integer" },
+                            "room_number": { "type": "integer" },
+                            "capacity": { "type": "integer" },
+                            "price_per_night": { "type": "number", "format": "float" },
+                            "status": { "type": "boolean" },
+                            "room_type": { "type": "string" }
+                        }
+                    }
+                }
+            },
+            "404": {
+               "description": "Not found"
+            },
+            "500": {
+               "description": "Internal server error"
+            }
+         }
+       }
+     },
+     "/rooms/{id}": {
+        "get": {
+          "operationId": "rooms_id",
+          "tags": ["Rooms"],
+          "description": "Récupère une chambre par son id",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                        "properties": {
+                            "id_room": { "type": "integer" },
+                            "room_number": { "type": "integer" },
+                            "capacity": { "type": "integer" },
+                            "price_per_night": { "type": "number", "format": "float" },
+                            "status": { "type": "boolean" },
+                            "room_type": { "type": "string" }
+                        }
+                 }
+             },
+             "404": {
+                "description": "Not found"
+             },
+             "500": {
+                "description": "Internal server error"
+             }
+          }
+        }
+      }
+   }
+}
