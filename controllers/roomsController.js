@@ -121,6 +121,42 @@ async function pricesBetween(req, res) {
     }
 }
 
+async function createRoom(req, res) {
+    try {
+        const room = await RoomsService.createRoom(req.body);
+        res.status(201);
+        res.json(room);
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la création de la chambre"});
+    }
+}
+
+async function updateRoom(req, res) {
+    try {
+        const room = await RoomsService.updateRoom(req.params.id, req.body);
+        res.status(201);
+        res.json(room);
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la modification de la chambre"});
+    }    
+}
+
+async function deleteRoom(req, res) {
+    try {
+        const room = await RoomsService.deleteRoom(req.params.id);
+        res.status(204);
+        res.json(room);
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la suppression de la chambre"});
+    }
+}
+
 module.exports = {
     findAllRooms,
     findOneRoom,
@@ -131,5 +167,8 @@ module.exports = {
     capacityAbove,
     findAvailableRoomsByType,
     pricesBelow,
-    pricesBetween
+    pricesBetween,
+    createRoom,
+    updateRoom,
+    deleteRoom
 }

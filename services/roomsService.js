@@ -50,6 +50,22 @@ async function pricesBetween(min, max){
     return results[0];
 }
 
+async function createRoom(room){
+    const results = await connection.promise().query('INSERT INTO rooms SET ?', [room]);
+    return await findOneRoom(results[0].insertId);
+}
+
+async function updateRoom(id, room){
+    await connection.promise().query('UPDATE rooms SET ? WHERE id_room = ?', [room, id]);
+    return await findOneRoom(id);
+}
+
+async function deleteRoom(id){
+    const response = await connection.promise().query('DELETE FROM rooms WHERE id_room = ?', [id]);
+    return response[0].affectedRows;
+}
+
+
 module.exports = {
     findAllRooms,
     findOneRoom,
@@ -60,5 +76,8 @@ module.exports = {
     capacityAbove,
     findAvailableRoomsByType,
     pricesBelow,
-    pricesBetween
+    pricesBetween,
+    createRoom,
+    updateRoom,
+    deleteRoom
 }

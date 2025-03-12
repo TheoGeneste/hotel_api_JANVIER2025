@@ -33,7 +33,14 @@ router.get('/types/:type/available', (req, res) => {RoomsController.findAvailabl
 // GET /rooms/:id
 router.get('/:id', (req, res) => {RoomsController.findOneRoom(req, res)});
 
+// POST /rooms
+router.post('/', (req, res) => {RoomsController.createRoom(req, res)});
 
+// PATCH /rooms/:id
+router.patch('/:id', (req, res) => {RoomsController.updateRoom(req, res)});
+
+// DELETE /rooms/:id
+router.delete('/:id', (req, res) => {RoomsController.deleteRoom(req, res)});
 
 
 module.exports = router;

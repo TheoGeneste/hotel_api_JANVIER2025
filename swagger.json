@@ -58,6 +58,76 @@
                   "description": "Internal server error"
                }
             }
+         },
+         "post": {
+            "operationId": "rooms_create",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Crée une chambre",
+            "parameters": [
+               {
+                  "name": "room",
+                  "in": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "room_number": {
+                           "type": "integer"
+                        },
+                        "capacity": {
+                           "type": "integer"
+                        },
+                        "price_per_night": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "status": {
+                           "type": "boolean"
+                        },
+                        "room_type": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "201": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_room": {
+                           "type": "integer"
+                        },
+                        "room_number": {
+                           "type": "integer"
+                        },
+                        "capacity": {
+                           "type": "integer"
+                        },
+                        "price_per_night": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "status": {
+                           "type": "boolean"
+                        },
+                        "room_type": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
          }
       },
       "/rooms/{id}": {
@@ -102,6 +172,108 @@
                         }
                      }
                   }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         },
+         "patch": {
+            "operationId": "rooms_update",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Met à jour une chambre",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "room",
+                  "in": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "room_number": {
+                           "type": "integer"
+                        },
+                        "capacity": {
+                           "type": "integer"
+                        },
+                        "price_per_night": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "status": {
+                           "type": "boolean"
+                        },
+                        "room_type": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "201": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_room": {
+                           "type": "integer"
+                        },
+                        "room_number": {
+                           "type": "integer"
+                        },
+                        "capacity": {
+                           "type": "integer"
+                        },
+                        "price_per_night": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "status": {
+                           "type": "boolean"
+                        },
+                        "room_type": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         },
+         "delete" : {
+            "operationId": "rooms_delete",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Supprime une chambre",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "204": {
+                  "description": "successful operation"
                },
                "404": {
                   "description": "Not found"
