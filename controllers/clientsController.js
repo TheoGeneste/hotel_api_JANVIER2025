@@ -1,4 +1,5 @@
 const ClientsService = require('../services/clientsService');
+const bcrypt = require('bcryptjs');
 
 async function findAllClients(req, res){
     try{
@@ -98,6 +99,8 @@ async function findClientWithMaxReservationCost(req, res){
 
 async function createClient(req, res){
     try{
+        // Crypt le password
+        req.body.password = bcrypt.hashSync(req.body.password, 10);
         const client = await ClientsService.createClient(req.body);
         res.status(201);
         res.json(client);

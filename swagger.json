@@ -11,6 +11,53 @@
    "host": "127.0.0.1:3000",
    "basePath": "/",
    "paths": {
+      "_comment": "Auth",
+      "/auth/login": {
+         "post": {
+            "operationId": "auth_login",
+            "tags": [
+               "Auth"
+            ],
+            "description": "Connecte un utilisateur",
+            "parameters": [
+               {
+                  "name": "user",
+                  "in": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "email": {
+                           "type": "string"
+                        },
+                        "password": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "token": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
       "_comment": "Rooms",
       "/rooms": {
          "get": {
@@ -774,6 +821,9 @@
                            "type": "string"
                         },
                         "email": {
+                           "type": "string"
+                        },
+                        "password": {
                            "type": "string"
                         }
                      }

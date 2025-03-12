@@ -9,6 +9,7 @@ const ReservationsRoutes = require('./routes/reservationsRoutes');
 const ServicesRoutes = require('./routes/servicesRoutes');
 const PaymentsRoutes = require('./routes/paymentsRoutes');
 const InclureRoutes = require('./routes/inclureRoutes');
+const AuthRoutes = require('./routes/authRoutes');
 
 // Précise à mon API que je vais utiliser du JSON
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use('/reservations', ReservationsRoutes);
 app.use('/services', ServicesRoutes);
 app.use('/payments', PaymentsRoutes);
 app.use('/inclures', InclureRoutes);
+app.use('/auth', AuthRoutes);
 
 
 
