@@ -26,4 +26,13 @@ router.get('/services/reservation/total/above/:price', (req,res) => { inclureCon
 // /inclures/:id
 router.get('/:id', (req,res) => { inclureController.getOne(req,res) });
 
+// POST /inclures
+router.post('/', (req,res) => { inclureController.create(req,res) });
+
+// PATCH /inclures/:id
+router.patch('/:id', (req,res) => { inclureController.update(req,res) });
+
+// DELETE /inclures/:id
+router.delete('/:id', (req,res) => { inclureController.deleteOne(req,res) });
+
 module.exports = router;

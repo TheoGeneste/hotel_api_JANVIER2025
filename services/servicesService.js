@@ -29,6 +29,21 @@ async function getOne(id){
     const results = await connection.promise().query('SELECT * FROM services WHERE id_service = ?', [id]);
     return results[0][0];
 }
+async function create(service){
+    const results = await connection.promise().query('INSERT INTO services SET ?', [service]);
+    return getOne(results[0].insertId);
+}
+
+async function update(id, service){
+    await connection.promise().query('UPDATE services SET ? WHERE id_service = ?', [service, id]);
+    return getOne(id);
+}
+
+async function deleteOne(id){
+    await connection.promise().query('DELETE FROM services WHERE id_service = ?', [id]);
+}
+
+
 
 module.exports = {
     getAll,
@@ -36,5 +51,8 @@ module.exports = {
     mostUsed,
     totalRoomType,
     lessCostly,
-    getOne
+    getOne,
+    create,
+    update,
+    deleteOne
 };

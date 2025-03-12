@@ -23,4 +23,13 @@ router.get('/total/reservation/status/:status', (req,res) => { paymentsControlle
 // /payments/:id
 router.get('/:id', (req,res) => { paymentsController.getOne(req,res) });
 
+// POST /payments
+router.post('/', (req,res) => { paymentsController.create(req,res) });
+
+// PATCH /payments/:id
+router.patch('/:id', (req,res) => { paymentsController.update(req,res) });
+
+// DELETE /payments/:id
+router.delete('/:id', (req,res) => { paymentsController.deleteOne(req,res) });
+
 module.exports = router;

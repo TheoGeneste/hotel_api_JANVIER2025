@@ -26,5 +26,13 @@ router.get('/clients/best', (req,res) => {reservationsController.bestClient(req,
 // /reservations/:id
 router.get('/:id', (req,res) => {reservationsController.getOne(req,res)});
 
+// POST /reservations
+router.post('/', (req,res) => {reservationsController.create(req,res)});
+
+// PATCH /reservations/:id
+router.patch('/:id', (req,res) => {reservationsController.update(req,res)});
+
+// DELETE /reservations/:id
+router.delete('/:id', (req,res) => {reservationsController.deleteOne(req,res)});
 
 module.exports = router;

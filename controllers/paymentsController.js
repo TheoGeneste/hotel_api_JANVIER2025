@@ -70,4 +70,35 @@ async function getOne(req, res) {
     }
 }
 
-module.exports = {getAll, getByPaymentMethod, above, getByReservationStatus, totalByMonth, totalByReservationStatus, getOne};
+async function create(req, res) {
+    try {
+        const payment = await PaymentsService.create(req.body);
+        res.status(201).json(payment);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({"message": "Une erreur est survenue lors de la création du paiement"});
+    }
+}
+
+async function update(req, res) {
+    try {
+        const payment = await PaymentsService.update(req.params.id, req.body);
+        res.status(200).json(payment);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({"message": "Une erreur est survenue lors de la modification du paiement"});
+    }
+}
+
+async function deleteOne(req, res) {
+    try {
+        await PaymentsService.deleteOne(req.params.id);
+        res.status(204).end();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({"message": "Une erreur est survenue lors de la suppression du paiement"});
+    }
+}
+
+
+module.exports = {getAll, getByPaymentMethod, above, getByReservationStatus, totalByMonth, totalByReservationStatus, getOne, create, update, deleteOne};

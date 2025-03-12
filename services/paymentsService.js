@@ -35,6 +35,21 @@ async function getOne(id){
     return results[0][0];
 }
 
+async function create(payment){
+    const results = await connection.promise().query('INSERT INTO payments SET ?', [payment]);
+    return getOne(results[0].insertId);
+}
+
+async function update(id, payment){
+    await connection.promise().query('UPDATE payments SET ? WHERE id_payment = ?', [payment, id]);
+    return getOne(id);
+}
+
+async function deleteOne(id){
+    await connection.promise().query('DELETE FROM payments WHERE id_payment = ?', [id]);
+}
+
+
 module.exports = {
     getAll,
     getByPaymentMethod,
@@ -42,5 +57,8 @@ module.exports = {
     getByReservationStatus,
     totalByMonth,
     totalByReservationStatus,
-    getOne
+    getOne,
+    create,
+    update,
+    deleteOne
 };

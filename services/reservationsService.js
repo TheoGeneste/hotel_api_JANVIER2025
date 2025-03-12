@@ -31,7 +31,7 @@ async function getByRoom(room){
 }
 
 async function bestClient(){
-    const results = await connection.promise().query('SELECT clients.*, count(id_reservation) AS \'Nombre réservation\' FROM clients INNER JOIN reservations ON reservations.id_client = clients.id_client GROUP BY clients.id_client;');
+    const results = await connection.promise().query('SELECT id_client, first_name, last_name, phone, registration_date, email, count(id_reservation) AS \'Nombre réservation\' FROM clients INNER JOIN reservations ON reservations.id_client = clients.id_client GROUP BY clients.id_client;');
     return results[0][0];
 }
 
@@ -40,4 +40,19 @@ async function getOne(id){
     return results[0][0];
 }
 
-module.exports = {getAll, getByStatus, averageCost, above, getByRoomType, getByRoom, bestClient, getOne};
+async function create(reservation){
+    const results = await connection.promise().query('INSERT INTO reservations SET ?', [reservation]);
+    return getOne(results[0].insertId);
+}
+
+async function update(id, reservation){
+    await connection.promise().query('UPDATE reservations SET ? WHERE id_reservation = ?', [reservation, id]);
+    return getOne(id);
+}
+
+async function deleteOne(id){
+    await connection.promise().query('DELETE FROM reservations WHERE id_reservation = ?', [id]);
+}
+
+
+module.exports = {getAll, getByStatus, averageCost, above, getByRoomType, getByRoom, bestClient, getOne, create, update, deleteOne};

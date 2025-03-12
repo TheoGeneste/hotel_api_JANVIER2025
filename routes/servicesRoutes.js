@@ -20,4 +20,14 @@ router.get('/less_costly', (req,res) => { servicesController.lessCostly(req,res)
 // /services/:id
 router.get('/:id', (req,res) => { servicesController.getOne(req,res) });
 
+// POST /services
+router.post('/', (req,res) => { servicesController.create(req,res) });
+
+// PATCH /services/:id
+router.patch('/:id', (req,res) => { servicesController.update(req,res) });
+
+// DELETE /services/:id
+router.delete('/:id', (req,res) => { servicesController.deleteOne(req,res) });
+
+
 module.exports = router;

@@ -60,4 +60,35 @@ async function getOne(req, res) {
     }
 }
 
-module.exports = {getAll, above, mostUsed, totalRoomType, lessCostly, getOne};
+async function create(req, res) {
+    try {
+        const service = await servivesService.create(req.body);
+        res.status(201).json(service);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({"message": "Une erreur est survenue lors de la création du service"});
+    }
+}
+
+async function update(req, res) {
+    try {
+        const service = await servivesService.update(req.params.id, req.body);
+        res.status(200).json(service);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({"message": "Une erreur est survenue lors de la modification du service"});
+    }
+}
+
+async function deleteOne(req, res) {
+    try {
+        await servivesService.deleteOne(req.params.id);
+        res.status(204).end();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({"message": "Une erreur est survenue lors de la suppression du service"});
+    }
+}
+
+
+module.exports = {getAll, above, mostUsed, totalRoomType, lessCostly, getOne, create, update, deleteOne};

@@ -40,6 +40,20 @@ async function getOne(id){
     return results[0][0];
 }
 
+async function create(inclure){
+    const results = await connection.promise().query('INSERT INTO inclure SET ?', [inclure]);
+    return getOne(results[0].insertId);
+}
+
+async function update(id, inclure){
+    await connection.promise().query('UPDATE inclure SET ? WHERE id_inclure = ?', [inclure, id]);
+    return getOne(id);
+}
+
+async function deleteOne(id){
+    await connection.promise().query('DELETE FROM inclure WHERE id_inclure = ?', [id]);
+}
+
 module.exports = {
     getAll,
     getByReservation,
@@ -48,7 +62,10 @@ module.exports = {
     servicesByReservationType,
     countServiceUsed,
     getServicesByReservationAbovePrice,
-    getOne
+    getOne,
+    create,
+    update,
+    deleteOne
 };
 
 
