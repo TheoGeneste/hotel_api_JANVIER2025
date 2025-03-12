@@ -1,83 +1,2045 @@
 {
    "swagger": "2.0",
    "info": {
-     "title": "Hotel API",
-     "description": "API for hotel management",
-     "version": "1.0"
+      "title": "Hotel API",
+      "description": "API for hotel management",
+      "version": "1.0"
    },
-   "produces": ["application/json"],
+   "produces": [
+      "application/json"
+   ],
    "host": "127.0.0.1:3000",
    "basePath": "/",
    "paths": {
-     "/rooms": {
-       "get": {
-         "operationId": "rooms",
-         "tags": ["Rooms"],
-         "description": "Récupère la liste des chambres",
-         "parameters": [],
-         "responses": {
-              "200": {
-                 "description": "successful operation",
-                 "schema": {
-                    "type": "array",
-                    "items": {
+      "_comment": "Rooms",
+      "/rooms": {
+         "get": {
+            "operationId": "rooms",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
                         "type": "object",
                         "properties": {
-                            "id_room": { "type": "integer" },
-                            "room_number": { "type": "integer" },
-                            "capacity": { "type": "integer" },
-                            "price_per_night": { "type": "number", "format": "float" },
-                            "status": { "type": "boolean" },
-                            "room_type": { "type": "string" }
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
                         }
-                    }
-                }
-            },
-            "404": {
-               "description": "Not found"
-            },
-            "500": {
-               "description": "Internal server error"
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
             }
          }
-       }
-     },
-     "/rooms/{id}": {
-        "get": {
-          "operationId": "rooms_id",
-          "tags": ["Rooms"],
-          "description": "Récupère une chambre par son id",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "type": "integer"
-            }
-          ],
-          "responses": {
+      },
+      "/rooms/{id}": {
+         "get": {
+            "operationId": "rooms_id",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère une chambre par son id",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
                "200": {
                   "description": "successful operation",
                   "schema": {
                      "type": "object",
-                        "properties": {
-                            "id_room": { "type": "integer" },
-                            "room_number": { "type": "integer" },
-                            "capacity": { "type": "integer" },
-                            "price_per_night": { "type": "number", "format": "float" },
-                            "status": { "type": "boolean" },
-                            "room_type": { "type": "string" }
+                     "properties": {
+                        "id_room": {
+                           "type": "integer"
+                        },
+                        "room_number": {
+                           "type": "integer"
+                        },
+                        "capacity": {
+                           "type": "integer"
+                        },
+                        "price_per_night": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "status": {
+                           "type": "boolean"
+                        },
+                        "room_type": {
+                           "type": "string"
                         }
-                 }
-             },
-             "404": {
-                "description": "Not found"
-             },
-             "500": {
-                "description": "Internal server error"
-             }
-          }
-        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/available": {
+         "get": {
+            "operationId": "rooms_available",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres disponibles",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/average_capacity": {
+         "get": {
+            "operationId": "rooms_average_capacity",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la moyenne de la capacité des chambres",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "Capacité Moyenne": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/pricesAbove/{price}": {
+         "get": {
+            "operationId": "rooms_pricesAbove",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres avec un prix supérieur à une certaine valeur",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/pricesBelow/{price}": {
+         "get": {
+            "operationId": "rooms_pricesBelow",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres avec un prix inférieur à une certaine valeur",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/prices/{min}/{max}": {
+         "get": {
+            "operationId": "rooms_pricesBetween",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres avec un prix compris entre une valeur minimale et une valeur maximale",
+            "parameters": [
+               {
+                  "name": "min",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               },
+               {
+                  "name": "max",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/types/{type}": {
+         "get": {
+            "operationId": "rooms_findByType",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres en fonction du type",
+            "parameters": [
+               {
+                  "name": "type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/capacityAbove/{capacity}": {
+         "get": {
+            "operationId": "rooms_capacityAbove",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres avec une capacité supérieure à une certaine valeur",
+            "parameters": [
+               {
+                  "name": "capacity",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/rooms/types/{type}/available": {
+         "get": {
+            "operationId": "rooms_availableByType",
+            "tags": [
+               "Rooms"
+            ],
+            "description": "Récupère la liste des chambres disponibles en fonction du type",
+            "parameters": [
+               {
+                  "name": "type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "_comment": "Clients",
+      "/clients": {
+         "get": {
+            "operationId": "clients_findAll",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère la liste de tous les clients",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "first_name": {
+                              "type": "string"
+                           },
+                           "last_name": {
+                              "type": "string"
+                           },
+                           "phone": {
+                              "type": "string"
+                           },
+                           "registration_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "email": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/{id}": {
+         "get": {
+            "operationId": "clients_findOne",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère un client par son ID",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "registration_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "email": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/reservation/year/{year}": {
+         "get": {
+            "operationId": "clients_findByReservationYear",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère la liste des clients ayant effectué une réservation durant une année donnée",
+            "parameters": [
+               {
+                  "name": "year",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "first_name": {
+                              "type": "string"
+                           },
+                           "last_name": {
+                              "type": "string"
+                           },
+                           "phone": {
+                              "type": "string"
+                           },
+                           "registration_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "email": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/reservation/month/{month}/year/{year}": {
+         "get": {
+            "operationId": "clients_findByReservationYearAndMonth",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère la liste des clients ayant réservé un mois et une année donnés",
+            "parameters": [
+               {
+                  "name": "month",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "year",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "first_name": {
+                              "type": "string"
+                           },
+                           "last_name": {
+                              "type": "string"
+                           },
+                           "phone": {
+                              "type": "string"
+                           },
+                           "registration_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "email": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/total_cost/above/{cost}": {
+         "get": {
+            "operationId": "clients_findByTotalCostAbove",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère la liste des clients ayant dépensé plus qu'un certain montant",
+            "parameters": [
+               {
+                  "name": "cost",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "first_name": {
+                              "type": "string"
+                           },
+                           "last_name": {
+                              "type": "string"
+                           },
+                           "phone": {
+                              "type": "string"
+                           },
+                           "registration_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "email": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/registration_date/{month}/{year}": {
+         "get": {
+            "operationId": "clients_findByRegistrationDate",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère la liste des clients inscrits durant un mois et une année donnés",
+            "parameters": [
+               {
+                  "name": "month",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "year",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "first_name": {
+                              "type": "string"
+                           },
+                           "last_name": {
+                              "type": "string"
+                           },
+                           "phone": {
+                              "type": "string"
+                           },
+                           "registration_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "email": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/reservation/roomType/{roomType}": {
+         "get": {
+            "operationId": "clients_findByReservationRoomType",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère la liste des clients ayant réservé un type de chambre spécifique",
+            "parameters": [
+               {
+                  "name": "roomType",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "first_name": {
+                              "type": "string"
+                           },
+                           "last_name": {
+                              "type": "string"
+                           },
+                           "phone": {
+                              "type": "string"
+                           },
+                           "registration_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "email": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/max_reservation_cost": {
+         "get": {
+            "operationId": "clients_findMaxReservationCost",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère le client ayant dépensé le plus en réservation",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "registration_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "email": {
+                           "type": "string"
+                        },
+                        "client": {
+                           "type": "string"
+                        },
+                        "total": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "_comment": "Reservations",
+      "/reservations": {
+         "get": {
+            "operationId": "reservations",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/{id}": {
+         "get": {
+            "operationId": "reservations_id",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère une réservation par son id",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_reservation": {
+                           "type": "integer"
+                        },
+                        "check_in_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "check_out_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "total_cost": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "reservation_status": {
+                           "type": "string"
+                        },
+                        "id_room": {
+                           "type": "integer"
+                        },
+                        "id_client": {
+                           "type": "integer"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/room/{room_number}": {
+         "get": {
+            "operationId": "reservations_room",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations pour une chambre donnée",
+            "parameters": [
+               {
+                  "name": "room_number",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/status/{status}": {
+         "get": {
+            "operationId": "reservations_status",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations en fonction du statut",
+            "parameters": [
+               {
+                  "name": "status",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/average_cost": {
+         "get": {
+            "operationId": "reservations_average_cost",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère le coût moyen des réservations",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "Coût Moyen": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/above/{price}": {
+         "get": {
+            "operationId": "reservations_priceAbove",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations avec un coût supérieur à une certaine valeur",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/rooms/type/{type}": {
+         "get": {
+            "operationId": "reservations_findByRoomType",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère la liste des réservations en fonction du type de chambre",
+            "parameters": [
+               {
+                  "name": "type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           },
+                           "room_number": {
+                              "type": "integer"
+                           },
+                           "capacity": {
+                              "type": "integer"
+                           },
+                           "price_per_night": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "status": {
+                              "type": "boolean"
+                           },
+                           "room_type": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/reservations/clients/best": {
+         "get": {
+            "operationId": "reservations_bestClient",
+            "tags": [
+               "Reservations"
+            ],
+            "description": "Récupère le client ayant effectué le plus de réservations",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "registration_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "email": {
+                           "type": "string"
+                        },
+                        "Nombre réservation": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "_comment": "Services",
+      "/services": {
+         "get": {
+            "operationId": "services",
+            "tags": [
+               "Services"
+            ],
+            "description": "Récupère la liste des services",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_service": {
+                              "type": "integer"
+                           },
+                           "service_name": {
+                              "type": "string"
+                           },
+                           "description": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number",
+                              "format": "float"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/services/{id}": {
+         "get": {
+            "operationId": "services_id",
+            "tags": [
+               "Services"
+            ],
+            "description": "Récupère un service par son id",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_service": {
+                           "type": "integer"
+                        },
+                        "service_name": {
+                           "type": "string"
+                        },
+                        "description": {
+                           "type": "string"
+                        },
+                        "price": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/services/above/{price}": {
+         "get": {
+            "operationId": "services_priceAbove",
+            "tags": [
+               "Services"
+            ],
+            "description": "Récupère la liste des services avec un prix supérieur à une certaine valeur",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_service": {
+                              "type": "integer"
+                           },
+                           "service_name": {
+                              "type": "string"
+                           },
+                           "description": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number",
+                              "format": "float"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/services/most_used": {
+         "get": {
+            "operationId": "services_mostUsed",
+            "tags": [
+               "Services"
+            ],
+            "description": "Récupère le service le plus utilisé",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "service_name": {
+                           "type": "string"
+                        },
+                        "Nombre utilisation du service": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/services/total/room/type/{type}": {
+         "get": {
+            "operationId": "services_totalRoomType",
+            "tags": [
+               "Services"
+            ],
+            "description": "Récupère le nombre total de services pour un type de chambre donné",
+            "parameters": [
+               {
+                  "name": "type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_service": {
+                           "type": "integer"
+                        },
+                        "service_name": {
+                           "type": "string"
+                        },
+                        "description": {
+                           "type": "string"
+                        },
+                        "price": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "total": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/services/less_costly": {
+         "get": {
+            "operationId": "services_lessCostly",
+            "tags": [
+               "Services"
+            ],
+            "description": "Récupère le service le moins cher",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_service": {
+                           "type": "integer"
+                        },
+                        "service_name": {
+                           "type": "string"
+                        },
+                        "description": {
+                           "type": "string"
+                        },
+                        "price": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "_comment": "Payments",
+      "/payments": {
+         "get": {
+            "operationId": "payments",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "payment_method": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/payment_method/{type}": {
+         "get": {
+            "operationId": "payments_method",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements en fonction de la méthode de paiement",
+            "parameters": [
+               {
+                  "name": "type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "payment_method": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/above/{price}": {
+         "get": {
+            "operationId": "payments_priceAbove",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements avec un montant supérieur à une certaine valeur",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "payment_method": {
+                              "type": "string"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/reservation/status/{status}": {
+         "get": {
+            "operationId": "payments_reservationStatus",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère la liste des paiements en fonction du statut de la réservation",
+            "parameters": [
+               {
+                  "name": "status",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_payment": {
+                              "type": "integer"
+                           },
+                           "payment_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "amount": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "payment_method": {
+                              "type": "string"
+                           },
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/total/month/{month}/year/{year}": {
+         "get": {
+            "operationId": "payments_totalMonthYear",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère le total des paiements pour un mois et une année donnés",
+            "parameters": [
+               {
+                  "name": "month",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "year",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "total": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/total/reservation/status/{status}": {
+         "get": {
+            "operationId": "total_reservation_status",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère le total des paiements en fonction du statut de la réservation",
+            "parameters": [
+               {
+                  "name": "status",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "total": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payments/{id}": {
+         "get": {
+            "operationId": "payments_id",
+            "tags": [
+               "Payments"
+            ],
+            "description": "Récupère un paiement par son id",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_payment": {
+                           "type": "integer"
+                        },
+                        "payment_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "amount": {
+                           "type": "number",
+                           "format": "float"
+                        },
+                        "payment_method": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
       }
    }
 }
