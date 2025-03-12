@@ -96,6 +96,42 @@ async function findClientWithMaxReservationCost(req, res){
     }
 }
 
+async function createClient(req, res){
+    try{
+        const client = await ClientsService.createClient(req.body);
+        res.status(201);
+        res.json(client);
+    }catch(error){
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la création du client"});
+    }
+}
+
+async function updateClient(req, res){
+    try{
+        const client = await ClientsService.updateClient(req.params.id, req.body);
+        res.status(200);
+        res.json(client);
+    }catch(error){
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la modification du client"});
+    }
+}
+
+async function deleteClient(req, res){
+    try{
+        await ClientsService.deleteClient(req.params.id);
+        res.status(204);
+        res.json();
+    }catch(error){
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la suppression du client"});
+    }
+}
+
 
 module.exports = {
     findAllClients,
@@ -105,5 +141,8 @@ module.exports = {
     findClientsByRegistrationDate,
     findClientsByReservationYearAndMonth,
     findClientsByReservationRoomType,
-    findClientWithMaxReservationCost
+    findClientWithMaxReservationCost,
+    createClient,
+    updateClient,
+    deleteClient
 };

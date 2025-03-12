@@ -257,7 +257,7 @@
                }
             }
          },
-         "delete" : {
+         "delete": {
             "operationId": "rooms_delete",
             "tags": [
                "Rooms"
@@ -749,6 +749,72 @@
                   "description": "Internal server error"
                }
             }
+         },
+         "post": {
+            "operationId": "clients_create",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Crée un client",
+            "parameters": [
+               {
+                  "name": "client",
+                  "in": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "email": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "201": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "registration_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "email": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
          }
       },
       "/clients/{id}": {
@@ -793,6 +859,104 @@
                         }
                      }
                   }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         },
+         "patch": {
+            "operationId": "clients_update",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Met à jour un client",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "client",
+                  "in": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "email": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "201": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "registration_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "email": {
+                           "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         },
+         "delete": {
+            "operationId": "clients_delete",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Supprime un client",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "204": {
+                  "description": "successful operation"
                },
                "404": {
                   "description": "Not found"
@@ -2200,6 +2364,465 @@
                         },
                         "payment_method": {
                            "type": "string"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "_comment": "Inclure",
+      "/inclures": {
+         "get": {
+            "operationId": "inclures",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère la liste des inclures",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_inclure": {
+                              "type": "integer"
+                           },
+                           "id_service": {
+                              "type": "integer"
+                           },
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "quantity": {
+                              "type": "integer"
+                           },
+                           "total_price": {
+                              "type": "number",
+                              "format": "float"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/inclures/{id}": {
+         "get": {
+            "operationId": "inclures_id",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère un inclure par son id",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_inclure": {
+                           "type": "integer"
+                        },
+                        "id_service": {
+                           "type": "integer"
+                        },
+                        "id_reservation": {
+                           "type": "integer"
+                        },
+                        "quantity": {
+                           "type": "integer"
+                        },
+                        "total_price": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/inclures/reservation/{id}": {
+         "get": {
+            "operationId": "inclures_reservation",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère la liste des services inclus dans une réservation",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_service": {
+                              "type": "integer"
+                           },
+                           "service_name": {
+                              "type": "string"
+                           },
+                           "description": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "id_inclure": {
+                              "type": "integer"
+                           },
+                           "total_price": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "quantity": {
+                              "type": "integer"
+                           },
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/inclures/total_service/reservation/{id}": {
+         "get": {
+            "operationId": "inclures_totalServiceReservation",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère le total des services inclus dans une réservation",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "total": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/inclures/count_service/reservation/{id}": {
+         "get": {
+            "operationId": "inclures_countServiceReservation",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère le nombre de services inclus dans une réservation",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "total": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/inclures/services_by_reservation/type/{type}": {
+         "get": {
+            "operationId": "inclures_servicesByReservationType",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère la liste des services inclus dans une réservation en fonction du type de chambre",
+            "parameters": [
+               {
+                  "name": "type",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_service": {
+                              "type": "integer"
+                           },
+                           "service_name": {
+                              "type": "string"
+                           },
+                           "description": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "id_inclure": {
+                              "type": "integer"
+                           },
+                           "total_price": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "quantity": {
+                              "type": "integer"
+                           },
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/inclures/count_service_used/{service_name}": {
+         "get": {
+            "operationId": "inclures_countServiceUsed",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère le nombre de fois qu'un service a été utilisé",
+            "parameters": [
+               {
+                  "name": "service_name",
+                  "in": "path",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "service_name": {
+                           "type": "string"
+                        },
+                        "total": {
+                           "type": "number",
+                           "format": "float"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/inclures/services/reservation/total/above/{price}": {
+         "get": {
+            "operationId": "inclures_servicesReservationTotalAbove",
+            "tags": [
+               "Inclures"
+            ],
+            "description": "Récupère la liste des services inclus dans une réservation avec un total supérieur à une certaine valeur",
+            "parameters": [
+               {
+                  "name": "price",
+                  "in": "path",
+                  "required": true,
+                  "type": "number",
+                  "format": "float"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_service": {
+                              "type": "integer"
+                           },
+                           "service_name": {
+                              "type": "string"
+                           },
+                           "description": {
+                              "type": "string"
+                           },
+                           "price": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "id_inclure": {
+                              "type": "integer"
+                           },
+                           "total_price": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "quantity": {
+                              "type": "integer"
+                           },
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "check_in_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "check_out_date": {
+                              "type": "string",
+                              "format": "date-time"
+                           },
+                           "total_cost": {
+                              "type": "number",
+                              "format": "float"
+                           },
+                           "reservation_status": {
+                              "type": "string"
+                           },
+                           "id_room": {
+                              "type": "integer"
+                           },
+                           "id_client": {
+                              "type": "integer"
+                           }
                         }
                      }
                   }

@@ -6,18 +6,18 @@ async function getAll(){
 }
 
 async function getByReservation(id){
-    const results = await connection.promise().query('SELECT * FROM services INNER JOIN inclure ON inclure.id_service = services.id_service INNER JOIN reservations ON reservations.id_reservation = inclure.id_reservation WHERE reservations.id_reservation > ?', [id]);
+    const results = await connection.promise().query('SELECT * FROM services INNER JOIN inclure ON inclure.id_service = services.id_service INNER JOIN reservations ON reservations.id_reservation = inclure.id_reservation WHERE reservations.id_reservation = ?', [id]);
     return results[0];
 }
 
 async function totalServiceByReservation(id){
     const results = await connection.promise().query('SELECT SUM(total_price) as total FROM inclure WHERE id_reservation = ?', [id]);
-    return results[0];
+    return results[0][0];
 }
 
 async function countServiceByReservation(id){
     const results = await connection.promise().query('SELECT COUNT(id_service) as total FROM inclure WHERE id_reservation = ?', [id]);
-    return results[0];
+    return results[0][0];
 }
 
 async function servicesByReservationType(type) {
@@ -26,8 +26,8 @@ async function servicesByReservationType(type) {
 }
 
 async function countServiceUsed(name){
-    const results = await connection.promise().query('SELECT COUNT(*) as total FROM inclure INNER JOIN services ON services.id_service = inclure.id_service WHERE service_name like ?', [name]);
-    return results[0];
+    const results = await connection.promise().query('SELECT service_name, COUNT(*) as total FROM inclure INNER JOIN services ON services.id_service = inclure.id_service WHERE service_name like ?', [name]);
+    return results[0][0];
 }
 
 async function getServicesByReservationAbovePrice(price){

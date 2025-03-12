@@ -28,5 +28,13 @@ router.get('/max_reservation_cost', (req, res) => {ClientsController.findClientW
 // GET /clients/:id
 router.get('/:id', (req, res) => {ClientsController.findOneClient(req, res)});
 
+// POST /clients/
+router.post('/', (req, res) => {ClientsController.createClient(req, res)});
+
+// PATCH /clients/:id
+router.patch('/:id', (req, res) => {ClientsController.updateClient(req, res)});
+
+// DELETE /clients/:id
+router.delete('/:id', (req, res) => {ClientsController.deleteClient(req, res)});
 
 module.exports = router;

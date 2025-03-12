@@ -42,6 +42,20 @@ async function findClientWithMaxReservationCost(){
     return results[0][0];
 }
 
+async function createClient(client){
+    const results = await connection.promise().query('INSERT INTO clients SET ?', [client]);
+    return findOneClient(results[0].insertId);
+}
+
+async function updateClient(id, client){
+    await connection.promise().query('UPDATE clients SET ? WHERE id_client = ?', [client, id]);
+    return findOneClient(id);
+}
+
+async function deleteClient(id){
+    await connection.promise().query('DELETE FROM clients WHERE id_client = ?', [id]);
+}
+
 module.exports = {
     findAllClients,
     findOneClient,
@@ -50,5 +64,8 @@ module.exports = {
     findClientsByRegistrationDate,
     findClientsByReservationYearAndMonth,
     findClientsByReservationRoomType,
-    findClientWithMaxReservationCost
+    findClientWithMaxReservationCost,
+    createClient,
+    updateClient,
+    deleteClient
 };
