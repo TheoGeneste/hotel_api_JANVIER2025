@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const RoomsController = require('../controllers/roomsController');
+const AuthController = require('../controllers/authController');
 // Toutes les routes de ce fichier commenceront par /rooms
 
 // GET /rooms/
@@ -34,13 +35,13 @@ router.get('/types/:type/available', (req, res) => {RoomsController.findAvailabl
 router.get('/:id', (req, res) => {RoomsController.findOneRoom(req, res)});
 
 // POST /rooms
-router.post('/', (req, res) => {RoomsController.createRoom(req, res)});
+router.post('/',AuthController.verifyToken, (req, res) => {RoomsController.createRoom(req, res)});
 
 // PATCH /rooms/:id
-router.patch('/:id', (req, res) => {RoomsController.updateRoom(req, res)});
+router.patch('/:id',AuthController.verifyToken, (req, res) => {RoomsController.updateRoom(req, res)});
 
 // DELETE /rooms/:id
-router.delete('/:id', (req, res) => {RoomsController.deleteRoom(req, res)});
+router.delete('/:id',AuthController.verifyToken, (req, res) => {RoomsController.deleteRoom(req, res)});
 
 
 module.exports = router;

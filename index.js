@@ -10,9 +10,12 @@ const ServicesRoutes = require('./routes/servicesRoutes');
 const PaymentsRoutes = require('./routes/paymentsRoutes');
 const InclureRoutes = require('./routes/inclureRoutes');
 const AuthRoutes = require('./routes/authRoutes');
+const PayerRoutes = require('./routes/payerRoutes');
+const cors = require('cors');
 
 // Précise à mon API que je vais utiliser du JSON
 app.use(express.json());
+app.use(cors());
 
 // Précise à mon API que je vais utiliser des routes
 // de mon fichier roomsRoutes.js
@@ -24,6 +27,7 @@ app.use('/services', ServicesRoutes);
 app.use('/payments', PaymentsRoutes);
 app.use('/inclures', InclureRoutes);
 app.use('/auth', AuthRoutes);
+app.use('/payers', PayerRoutes);
 
 
 
@@ -33,3 +37,5 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.listen(port, () => {
   console.log(`Server is running on port http://127.0.0.1:${port}`);
 });
+
+module.exports = app;   

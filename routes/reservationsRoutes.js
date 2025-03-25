@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const reservationsController = require('../controllers/reservationsController');
+const AuthController = require('../controllers/authController');
 
 // /reservations
 router.get('/', (req,res) => {reservationsController.getAll(req,res)});
@@ -27,12 +28,12 @@ router.get('/clients/best', (req,res) => {reservationsController.bestClient(req,
 router.get('/:id', (req,res) => {reservationsController.getOne(req,res)});
 
 // POST /reservations
-router.post('/', (req,res) => {reservationsController.create(req,res)});
+router.post('/',AuthController.verifyToken, (req,res) => {reservationsController.create(req,res)});
 
 // PATCH /reservations/:id
-router.patch('/:id', (req,res) => {reservationsController.update(req,res)});
+router.patch('/:id',AuthController.verifyToken, (req,res) => {reservationsController.update(req,res)});
 
 // DELETE /reservations/:id
-router.delete('/:id', (req,res) => {reservationsController.deleteOne(req,res)});
+router.delete('/:id',AuthController.verifyToken, (req,res) => {reservationsController.deleteOne(req,res)});
 
 module.exports = router;

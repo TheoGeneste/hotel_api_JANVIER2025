@@ -113,6 +113,7 @@ async function createClient(req, res){
 
 async function updateClient(req, res){
     try{
+        console.log(req.user);
         const client = await ClientsService.updateClient(req.params.id, req.body);
         res.status(200);
         res.json(client);
@@ -125,6 +126,13 @@ async function updateClient(req, res){
 
 async function deleteClient(req, res){
     try{
+        console.log(req.user);
+        
+        if (req.user.role !== 'ADMIN'){
+            res.status(403);
+            res.json({"message": "Vous n'avez pas les droits pour effectuer cette action"});
+            return;
+        }
         await ClientsService.deleteClient(req.params.id);
         res.status(204);
         res.json();
@@ -135,6 +143,17 @@ async function deleteClient(req, res){
     }
 }
 
+async function findMe(req, res){
+    try{
+        const client = await ClientsService.findOneClient(req.user.id);
+        res.status(200);
+        res.json(client);
+    }catch(error){
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la récupération du client"});
+    }
+}
 
 module.exports = {
     findAllClients,
@@ -147,5 +166,6 @@ module.exports = {
     findClientWithMaxReservationCost,
     createClient,
     updateClient,
-    deleteClient
+    deleteClient,
+    findMe
 };

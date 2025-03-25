@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const inclureController = require('../controllers/inclureController');
+const AuthController = require('../controllers/authController');
 
 // /inclures
 router.get('/', (req,res) => { inclureController.getAll(req,res) });
@@ -27,12 +28,12 @@ router.get('/services/reservation/total/above/:price', (req,res) => { inclureCon
 router.get('/:id', (req,res) => { inclureController.getOne(req,res) });
 
 // POST /inclures
-router.post('/', (req,res) => { inclureController.create(req,res) });
+router.post('/',AuthController.verifyToken, (req,res) => { inclureController.create(req,res) });
 
 // PATCH /inclures/:id
-router.patch('/:id', (req,res) => { inclureController.update(req,res) });
+router.patch('/:id',AuthController.verifyToken, (req,res) => { inclureController.update(req,res) });
 
 // DELETE /inclures/:id
-router.delete('/:id', (req,res) => { inclureController.deleteOne(req,res) });
+router.delete('/:id',AuthController.verifyToken, (req,res) => { inclureController.deleteOne(req,res) });
 
 module.exports = router;

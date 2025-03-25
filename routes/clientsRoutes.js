@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const ClientsController = require('../controllers/clientsController');
+const AuthController = require('../controllers/authController');
 
 // Toutes les routes de ce fichier commenceront par /clients
 
 // GET /clients/
 router.get('/', (req, res) => {ClientsController.findAllClients(req, res)});
+
+// GET /me
+router.get('/me',AuthController.verifyToken, (req, res) => {ClientsController.findMe(req, res)});
 
 // GET /clients/reservation/year/:year
 router.get('/reservation/year/:year', (req, res) => {ClientsController.findClientsByReservationYear(req, res)});
@@ -29,12 +33,12 @@ router.get('/max_reservation_cost', (req, res) => {ClientsController.findClientW
 router.get('/:id', (req, res) => {ClientsController.findOneClient(req, res)});
 
 // POST /clients/
-router.post('/', (req, res) => {ClientsController.createClient(req, res)});
+router.post('/',AuthController.verifyToken, (req, res) => {ClientsController.createClient(req, res)});
 
 // PATCH /clients/:id
-router.patch('/:id', (req, res) => {ClientsController.updateClient(req, res)});
+router.patch('/:id',AuthController.verifyToken, (req, res) => {ClientsController.updateClient(req, res)});
 
 // DELETE /clients/:id
-router.delete('/:id', (req, res) => {ClientsController.deleteClient(req, res)});
+router.delete('/:id',AuthController.verifyToken, (req, res) => {ClientsController.deleteClient(req, res)});
 
 module.exports = router;

@@ -10,6 +10,19 @@
    ],
    "host": "127.0.0.1:3000",
    "basePath": "/",
+   "securityDefinitions": {
+      "Bearer": {
+         "type": "apiKey",
+         "name": "Authorization",
+         "in": "header",
+         "description": "Entrer le token JWT sous la forme 'Bearer token'"
+      }
+   },
+   "security": [
+      {
+         "Bearer": []
+      }
+   ],
    "paths": {
       "_comment": "Auth",
       "/auth/login": {
@@ -1007,6 +1020,51 @@
             "responses": {
                "204": {
                   "description": "successful operation"
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/clients/me": {
+         "get": {
+            "operationId": "clients_me",
+            "tags": [
+               "Clients"
+            ],
+            "description": "Récupère les informations du client connecté",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_client": {
+                           "type": "integer"
+                        },
+                        "first_name": {
+                           "type": "string"
+                        },
+                        "last_name": {
+                           "type": "string"
+                        },
+                        "phone": {
+                           "type": "string"
+                        },
+                        "registration_date": {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        "email": {
+                           "type": "string"
+                        }
+                     }
+                  }
                },
                "404": {
                   "description": "Not found"
@@ -2048,7 +2106,7 @@
                }
             }
          },
-         "post" : {
+         "post": {
             "operationId": "services_create",
             "tags": [
                "Services"
@@ -2146,7 +2204,7 @@
                }
             }
          },
-         "patch" : {
+         "patch": {
             "operationId": "services_update",
             "tags": [
                "Services"
@@ -2210,7 +2268,7 @@
                }
             }
          },
-         "delete" : {
+         "delete": {
             "operationId": "services_delete",
             "tags": [
                "Services"
@@ -2452,7 +2510,7 @@
                }
             }
          },
-         "post" : {
+         "post": {
             "operationId": "payments_create",
             "tags": [
                "Payments"
@@ -2808,7 +2866,7 @@
                }
             }
          },
-         "patch" : {
+         "patch": {
             "operationId": "payments_update",
             "tags": [
                "Payments"
@@ -3053,7 +3111,7 @@
                }
             }
          },
-         "patch" : {
+         "patch": {
             "operationId": "inclures_update",
             "tags": [
                "Inclures"
@@ -3122,8 +3180,8 @@
                   "description": "Internal server error"
                }
             }
-         }, 
-         "delete" : {
+         },
+         "delete": {
             "operationId": "inclures_delete",
             "tags": [
                "Inclures"
@@ -3513,6 +3571,170 @@
                }
             }
          }
+      },
+      "_comment": "Payer",
+      "/payers": {
+         "get": {
+            "operationId": "payers",
+            "tags": [
+               "Payers"
+            ],
+            "description": "Récupère la liste des payers",
+            "parameters": [],
+            "responses": {
+               "200": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "object",
+                        "properties": {
+                           "id_reservation": {
+                              "type": "integer"
+                           },
+                           "id_payment": {
+                              "type": "integer"
+                           }
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         },
+         "post": {
+            "operationId": "payers_create",
+            "tags": [
+               "Payers"
+            ],
+            "description": "Crée un payer",
+            "parameters": [
+               {
+                  "name": "payer",
+                  "in": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_reservation": {
+                           "type": "integer"
+                        },
+                        "id_payment": {
+                           "type": "integer"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "201": {
+                  "description": "successful operation",
+                  "schema": {
+                     "type": "object",
+                     "properties": {
+                        "id_reservation": {
+                           "type": "integer"
+                        },
+                        "id_payment": {
+                           "type": "integer"
+                        }
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/payers/{id}": {
+          "patch": {
+            "operationId": "payers_update",
+            "tags": [
+               "Payers"
+            ],
+            "description": "Met à jour un payer",
+            "parameters": [
+               {
+                 "name": "id",
+                 "in": "path",
+                 "required": true,
+                 "type": "integer"
+               },
+               {
+                 "name": "payer",
+                 "in": "body",
+                 "required": true,
+                 "schema": {
+                   "type": "object",
+                   "properties": {
+                     "id_reservation": {
+                        "type": "integer"
+                     },
+                     "id_payment": {
+                        "type": "integer"
+                     }
+                   }
+                 }
+               }
+            ],
+            "responses": {
+               "201": {
+                 "description": "successful operation",
+                 "schema": {
+                   "type": "object",
+                   "properties": {
+                     "id_reservation": {
+                        "type": "integer"
+                     },
+                     "id_payment": {
+                        "type": "integer"
+                     }
+                   }
+                 }
+               },
+               "404": {
+                 "description": "Not found"
+               },
+               "500": {
+                 "description": "Internal server error"
+               }
+            }
+          },
+          "delete": {
+            "operationId": "payers_delete",
+            "tags": [
+               "Payers"
+            ],
+            "description": "Supprime un payer",
+            "parameters": [
+               {
+                 "name": "id",
+                 "in": "path",
+                 "required": true,
+                 "type": "integer"
+               }
+            ],
+            "responses": {
+               "204": {
+                 "description": "successful operation"
+               },
+               "404": {
+                 "description": "Not found"
+               },
+               "500": {
+                 "description": "Internal server error"
+               }
+            }
+          }
       }
    }
 }
