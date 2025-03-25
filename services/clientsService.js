@@ -56,6 +56,11 @@ async function deleteClient(id){
     await connection.promise().query('DELETE FROM clients WHERE id_client = ?', [id]);
 }
 
+async function findClientByEmail(email) {
+    const results = await connection.promise().query('SELECT * FROM clients WHERE email = ?', [email]);
+    return results[0][0];
+}
+
 module.exports = {
     findAllClients,
     findOneClient,
@@ -67,5 +72,6 @@ module.exports = {
     findClientWithMaxReservationCost,
     createClient,
     updateClient,
-    deleteClient
+    deleteClient,
+    findClientByEmail
 };

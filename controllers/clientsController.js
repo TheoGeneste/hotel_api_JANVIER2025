@@ -1,5 +1,7 @@
 const ClientsService = require('../services/clientsService');
 const bcrypt = require('bcryptjs');
+const transporter = require('../config/nodemail');
+const jwt = require('jsonwebtoken');
 
 async function findAllClients(req, res){
     try{
@@ -155,6 +157,49 @@ async function findMe(req, res){
     }
 }
 
+async function passwordForget(req, res){
+    try{
+        const client = await ClientsService.findClientByEmail(req.body.email);
+        if (!client){
+            res.status(404);
+            res.json({"message": "Aucun utilisateur trouvé avec cet email"});
+            return;
+        }   
+        const token = jwt.sign({id: client.id_client}, "SECRET", {expiresIn: '1h'});
+        await transporter.sendMail({
+            from: 'BIALASIK Théo <theobialasik@gmail.com>',
+            to : client.email,
+            subject: 'Réinitialisation de votre mot de passe',
+            html: `<h1>Bonjour ${client.first_name} ${client.last_name}</h1>, <br>
+            <p>Vous avez demandé à réinitialiser votre mot de passe.</p> <br>
+            <p>Veuillez cliquer sur le lien suivant pour le réinitialiser : <a href="http://localhost:5173/reset_password/${token}">Renitialiser le mot de passe</a></p> <br>
+            <p>Si vous n'êtes pas à l'origine de cette demande, veuillez ignorer cet email.</p> <br>
+            <strong>Cordialement,</strong>\n
+            <h3>L'équipe de l'hôtel Janvier 2025</h3>`
+        });
+        res.status(201);    
+        res.json({"message": "Un email vous a été envoyé pour réinitialiser votre mot de passe"});
+    }catch(error){
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de l'envoi du mail"});
+    }
+}
+
+async function passwordReset(req, res){ 
+    try {
+        const client = await ClientsService.updateClient(req.user.id, {password: bcrypt.hashSync(req.body.password, 10)});
+        res.status(200);
+        res.json(client);
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+        res.json({"message": "Une erreur est survenue lors de la réinitialisation du mot de passe"});
+        
+    }
+    
+}
+
 module.exports = {
     findAllClients,
     findOneClient,
@@ -167,5 +212,7 @@ module.exports = {
     createClient,
     updateClient,
     deleteClient,
-    findMe
+    findMe,
+    passwordForget,
+    passwordReset
 };

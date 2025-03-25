@@ -8,6 +8,12 @@ const AuthController = require('../controllers/authController');
 // GET /clients/
 router.get('/', (req, res) => {ClientsController.findAllClients(req, res)});
 
+// POST /clients/password_forget
+router.post('/password_forget', (req, res) => {ClientsController.passwordForget(req, res)});
+
+// POST /clients/password_reset
+router.post('/password_reset',AuthController.verifyToken, (req, res) => {ClientsController.passwordReset(req, res)});
+
 // GET /me
 router.get('/me',AuthController.verifyToken, (req, res) => {ClientsController.findMe(req, res)});
 
